@@ -1,6 +1,6 @@
 class CustomReportTemplatesController < ApplicationController
 
-  set_access_control "create_job" => [:new, :edit, :index, :create, :update,
+  set_access_control "manage_custom_report_templates" => [:new, :edit, :index, :create, :update,
     :delete, :show, :copy]
 
   def new

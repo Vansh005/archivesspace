@@ -17,7 +17,27 @@ $(function() {
     $('#custom_record_type').trigger('change');
   };
 
-  initCustomReportTemplateForm();
+    initCustomReportTemplateForm();
+
+    // Don't fire a request for *every* keystroke.  Wait until they stop
+    // typing for a moment.
+    var username_typeahead = AS.delayedTypeAhead(function (query, callback) {
+        $.ajax({
+            url: AS.app_prefix("users/complete"),
+            data: {query: query},
+            type: "GET",
+            success: function(usernames) {
+                callback(usernames);
+            },
+            error: function() {
+                callback([]);
+            }
+        });
+    });
+
+    $(".user-field").typeahead({
+        source: username_typeahead.handle
+    });
 });
 
 $(document).ready(function(){

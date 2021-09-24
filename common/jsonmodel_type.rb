@@ -199,7 +199,6 @@ class JSONModelType
 
 
   attr_reader :uri
-  attr_accessor :data
 
   def uri=(val)
     @uri = val
@@ -447,6 +446,7 @@ class JSONModelType
       if not method_defined? "#{attribute}="
         define_method "#{attribute}=" do |value|
           @validated = false
+          puts "D #{@data} A #{attribute} V #{value}"
           @data[attribute] = JSONModel.clean_data(value)
         end
       end
